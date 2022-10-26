@@ -14,9 +14,9 @@ class UserInfoTableViewCell: UITableViewCell {
     @IBOutlet private weak var nameUserLabel: UILabel!
     @IBOutlet private weak var avatarUserImageView: UIImageView!
     @IBOutlet private weak var cellUIView: UIView!
-    @IBOutlet weak var showDetailButton: UIImageView!
+    @IBOutlet private weak var showDetailButton: UIImageView!
     
-    private let network = Network.shared
+    private let network = APICaller.shared
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,8 +30,8 @@ class UserInfoTableViewCell: UITableViewCell {
         selectionStyle = .none
     }
 
-    func bindData(user: User, isHiddenShowDetailButton: Bool) {
-        self.network.getImage(imageURL: (user.avatar_url)) { [weak self] (data, error)  in
+    func bindData(user: DomainUser, isHiddenShowDetailButton: Bool) {
+        self.network.getImage(imageURL: (user.avatarUrl)) { [weak self] (data, error)  in
             guard let self = self else { return }
             if let error = error {
                 print(error)
@@ -45,7 +45,7 @@ class UserInfoTableViewCell: UITableViewCell {
             showDetailButton.isHidden = true
         }
         nameUserLabel.text = user.login
-        gitHubLinkLabel.text = user.html_url
+        gitHubLinkLabel.text = user.htmlUrl
     }
     
     func bindDataFromCoreData(_ user: NSManagedObject) {
@@ -62,9 +62,6 @@ class UserInfoTableViewCell: UITableViewCell {
         }
         nameUserLabel.text = (user.value(forKey: "login") as? String) ?? ""
         gitHubLinkLabel.text = (user.value(forKey: "htmlUrl") as? String) ?? ""
-    }
-    
-    @IBAction func showDetailBtnAction(_ sender: Any) {
     }
 }
 

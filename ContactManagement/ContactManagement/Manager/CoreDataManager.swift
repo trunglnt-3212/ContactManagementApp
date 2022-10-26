@@ -18,7 +18,7 @@ class CoreData {
         appDelegate = UIApplication.shared.delegate as? AppDelegate
     }
     
-    func addUserToCoreData(userInfo: User?) {
+    func addUserToCoreData(userInfo: DomainUser?) {
         guard let appDelegate = appDelegate else { return }
         
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -27,12 +27,12 @@ class CoreData {
         
         let user = NSManagedObject(entity: entity, insertInto: managedContext)
         user.setValue(userInfo?.login, forKey: "login")
-        user.setValue(userInfo?.avatar_url, forKey: "avatarUrl")
-        user.setValue(userInfo?.html_url, forKey: "htmlUrl")
-        user.setValue(userInfo?.followers_url, forKey: "followersUrl")
-        user.setValue(userInfo?.following_url, forKey: "followingUrl")
+        user.setValue(userInfo?.avatarUrl, forKey: "avatarUrl")
+        user.setValue(userInfo?.htmlUrl, forKey: "htmlUrl")
+        user.setValue(userInfo?.followersUrl, forKey: "followersUrl")
+        user.setValue(userInfo?.followingUrl, forKey: "followingUrl")
         user.setValue(userInfo?.id, forKey: "id")
-        user.setValue(userInfo?.repos_url, forKey: "reposUrl")
+        user.setValue(userInfo?.reposUrl, forKey: "reposUrl")
         do {
             try managedContext.save()
         } catch let error as NSError {
@@ -40,7 +40,7 @@ class CoreData {
         }
     }
     
-    func deleteUserFromCoreData(userInfo: User?) {
+    func deleteUserFromCoreData(userInfo: DomainUser?) {
         guard let appDelegate = appDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "UserEntity")
@@ -79,4 +79,3 @@ class CoreData {
         }
     }
 }
-

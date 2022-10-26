@@ -10,12 +10,17 @@
 		5D2C446628FF955D009157C6 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C446528FF955D009157C6 /* UserDetailViewController.swift */; };
 		5D2C446F28FFFE9A009157C6 /* FavoriteUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C446E28FFFE9A009157C6 /* FavoriteUsersViewController.swift */; };
 		5D2C44732901042D009157C6 /* UsersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C44722901042D009157C6 /* UsersModel.swift */; };
-		5D2C44772901061D009157C6 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C44762901061D009157C6 /* NetworkManager.swift */; };
-		5D2C4479290133FF009157C6 /* RepoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C4478290133FF009157C6 /* RepoModel.swift */; };
+		5D2C44772901061D009157C6 /* RepositoryTypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C44762901061D009157C6 /* RepositoryTypeManager.swift */; };
+		5D2C4479290133FF009157C6 /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C4478290133FF009157C6 /* ProjectModel.swift */; };
 		5D2C44A229079751009157C6 /* FavoriteCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C44A029079751009157C6 /* FavoriteCoreData.xcdatamodeld */; };
 		5D2C44A42907BECE009157C6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C44A32907BECE009157C6 /* CoreDataManager.swift */; };
+		5D2C44AA2907E634009157C6 /* MethodRequestEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C44A92907E634009157C6 /* MethodRequestEnum.swift */; };
+		5D2C44AC2908C83E009157C6 /* DomainUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C44AB2908C83E009157C6 /* DomainUserModel.swift */; };
+		5D2C44AE2908D9B2009157C6 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C44AD2908D9B2009157C6 /* NetworkError.swift */; };
+		5D2C44B32908DFBC009157C6 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C44B22908DFBC009157C6 /* APICaller.swift */; };
+		5D2C44B52908E3BD009157C6 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C44B42908E3BD009157C6 /* UserRepository.swift */; };
+		5D2C44B92908E8B3009157C6 /* DomainProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2C44B82908E8B3009157C6 /* DomainProjectModel.swift */; };
 		5DAEB1E328FE80BE001690C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAEB1E228FE80BE001690C2 /* AppDelegate.swift */; };
-		5DAEB1E528FE80BE001690C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAEB1E428FE80BE001690C2 /* SceneDelegate.swift */; };
 		5DAEB1E728FE80BE001690C2 /* ListUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAEB1E628FE80BE001690C2 /* ListUserViewController.swift */; };
 		5DAEB1EA28FE80BE001690C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DAEB1E828FE80BE001690C2 /* Main.storyboard */; };
 		5DAEB1EC28FE80BE001690C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DAEB1EB28FE80BE001690C2 /* Assets.xcassets */; };
@@ -29,13 +34,18 @@
 		5D2C446528FF955D009157C6 /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		5D2C446E28FFFE9A009157C6 /* FavoriteUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteUsersViewController.swift; sourceTree = "<group>"; };
 		5D2C44722901042D009157C6 /* UsersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersModel.swift; sourceTree = "<group>"; };
-		5D2C44762901061D009157C6 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		5D2C4478290133FF009157C6 /* RepoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoModel.swift; sourceTree = "<group>"; };
+		5D2C44762901061D009157C6 /* RepositoryTypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTypeManager.swift; sourceTree = "<group>"; };
+		5D2C4478290133FF009157C6 /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
 		5D2C44A129079751009157C6 /* FavoriteCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteCoreData.xcdatamodel; sourceTree = "<group>"; };
 		5D2C44A32907BECE009157C6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		5D2C44A92907E634009157C6 /* MethodRequestEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodRequestEnum.swift; sourceTree = "<group>"; };
+		5D2C44AB2908C83E009157C6 /* DomainUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainUserModel.swift; sourceTree = "<group>"; };
+		5D2C44AD2908D9B2009157C6 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		5D2C44B22908DFBC009157C6 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		5D2C44B42908E3BD009157C6 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		5D2C44B82908E8B3009157C6 /* DomainProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainProjectModel.swift; sourceTree = "<group>"; };
 		5DAEB1DF28FE80BE001690C2 /* ContactManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DAEB1E228FE80BE001690C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5DAEB1E428FE80BE001690C2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5DAEB1E628FE80BE001690C2 /* ListUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUserViewController.swift; sourceTree = "<group>"; };
 		5DAEB1E928FE80BE001690C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5DAEB1EB28FE80BE001690C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -70,10 +80,40 @@
 		5D2C447529010602009157C6 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				5D2C44762901061D009157C6 /* NetworkManager.swift */,
+				5D2C44B22908DFBC009157C6 /* APICaller.swift */,
+				5D2C44762901061D009157C6 /* RepositoryTypeManager.swift */,
 				5D2C44A32907BECE009157C6 /* CoreDataManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		5D2C44A72907E55B009157C6 /* UserInfoModel */ = {
+			isa = PBXGroup;
+			children = (
+				5DAEB20228FE9031001690C2 /* UserModel.swift */,
+				5D2C44722901042D009157C6 /* UsersModel.swift */,
+				5D2C4478290133FF009157C6 /* ProjectModel.swift */,
+				5D2C44B82908E8B3009157C6 /* DomainProjectModel.swift */,
+				5D2C44AB2908C83E009157C6 /* DomainUserModel.swift */,
+			);
+			path = UserInfoModel;
+			sourceTree = "<group>";
+		};
+		5D2C44A82907E567009157C6 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				5D2C44A92907E634009157C6 /* MethodRequestEnum.swift */,
+				5D2C44AD2908D9B2009157C6 /* NetworkError.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		5D2C44B12908DE30009157C6 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				5D2C44B42908E3BD009157C6 /* UserRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		5DAEB1D628FE80BE001690C2 = {
@@ -95,11 +135,11 @@
 		5DAEB1E128FE80BE001690C2 /* ContactManagement */ = {
 			isa = PBXGroup;
 			children = (
+				5D2C44B12908DE30009157C6 /* Repository */,
 				5D2C447529010602009157C6 /* Manager */,
 				5D2C4474290105EC009157C6 /* ViewController */,
 				5DAEB1FC28FE8A86001690C2 /* Model */,
 				5DAEB1E228FE80BE001690C2 /* AppDelegate.swift */,
-				5DAEB1E428FE80BE001690C2 /* SceneDelegate.swift */,
 				5DAEB1E828FE80BE001690C2 /* Main.storyboard */,
 				5DAEB1EB28FE80BE001690C2 /* Assets.xcassets */,
 				5DAEB1ED28FE80BE001690C2 /* LaunchScreen.storyboard */,
@@ -113,9 +153,8 @@
 			isa = PBXGroup;
 			children = (
 				5DAEB1FD28FE8A8D001690C2 /* UserInfoCell */,
-				5DAEB20228FE9031001690C2 /* UserModel.swift */,
-				5D2C44722901042D009157C6 /* UsersModel.swift */,
-				5D2C4478290133FF009157C6 /* RepoModel.swift */,
+				5D2C44A72907E55B009157C6 /* UserInfoModel */,
+				5D2C44A82907E567009157C6 /* Enum */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,16 +241,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D2C44A229079751009157C6 /* FavoriteCoreData.xcdatamodeld in Sources */,
-				5D2C44772901061D009157C6 /* NetworkManager.swift in Sources */,
+				5D2C44AE2908D9B2009157C6 /* NetworkError.swift in Sources */,
+				5D2C44772901061D009157C6 /* RepositoryTypeManager.swift in Sources */,
 				5DAEB20028FE8AA2001690C2 /* UserInfoTableViewCell.swift in Sources */,
 				5DAEB1E728FE80BE001690C2 /* ListUserViewController.swift in Sources */,
 				5D2C446628FF955D009157C6 /* UserDetailViewController.swift in Sources */,
 				5DAEB1E328FE80BE001690C2 /* AppDelegate.swift in Sources */,
 				5D2C44A42907BECE009157C6 /* CoreDataManager.swift in Sources */,
+				5D2C44AA2907E634009157C6 /* MethodRequestEnum.swift in Sources */,
+				5D2C44AC2908C83E009157C6 /* DomainUserModel.swift in Sources */,
 				5DAEB20328FE9031001690C2 /* UserModel.swift in Sources */,
-				5DAEB1E528FE80BE001690C2 /* SceneDelegate.swift in Sources */,
-				5D2C4479290133FF009157C6 /* RepoModel.swift in Sources */,
+				5D2C4479290133FF009157C6 /* ProjectModel.swift in Sources */,
+				5D2C44B92908E8B3009157C6 /* DomainProjectModel.swift in Sources */,
 				5D2C44732901042D009157C6 /* UsersModel.swift in Sources */,
+				5D2C44B32908DFBC009157C6 /* APICaller.swift in Sources */,
+				5D2C44B52908E3BD009157C6 /* UserRepository.swift in Sources */,
 				5D2C446F28FFFE9A009157C6 /* FavoriteUsersViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

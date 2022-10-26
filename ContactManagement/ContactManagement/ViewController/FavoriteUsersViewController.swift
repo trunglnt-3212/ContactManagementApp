@@ -8,12 +8,11 @@
 import UIKit
 import CoreData
 
-class FavoriteUsersViewController: UIViewController {
+final class FavoriteUsersViewController: UIViewController {
     
     @IBOutlet private weak var tableView: UITableView!
     
     private var listFavoriteUser = [NSManagedObject]()
-    private let network = Network.shared
     private let coreData = CoreData.shared
     
     override func viewDidLoad() {
@@ -48,12 +47,12 @@ class FavoriteUsersViewController: UIViewController {
         tableView.dataSource = self
     }
     
-    @IBAction func backButtonAction(_ sender: Any) {
+    @IBAction private func backButtonAction(_ sender: Any) {
         _ = navigationController?.popViewController(animated: true)
     }
 }
 
-extension FavoriteUsersViewController: UITableViewDataSource, UITableViewDelegate {
+extension FavoriteUsersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listFavoriteUser.count
     }
@@ -67,7 +66,9 @@ extension FavoriteUsersViewController: UITableViewDataSource, UITableViewDelegat
         cell.bindDataFromCoreData(user)
         return cell
     }
-    
+}
+
+extension FavoriteUsersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let userDetailViewController = storyboard.instantiateViewController(withIdentifier: "UserDetailViewController") as? UserDetailViewController else {

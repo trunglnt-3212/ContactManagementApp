@@ -1,23 +1,15 @@
 //
-//  Networker.swift
-//  Quotes
+//  APICaller.swift
+//  ContactManagement
 //
-//  Created by Sam Meech-Ward on 2020-05-23.
-//  Copyright © 2020 meech-ward. All rights reserved.
+//  Created by le.n.t.trung on 26/10/2022.
 //
 
 import Foundation
 
-enum NetworkError: Error {
-    case badResponse
-    case badStatusCode(Int)
-    case badData
-}
-
-class Network {
+class APICaller {
     
-    static let shared = Network()
-    
+    static let shared = APICaller()
     private let session: URLSession
     
     private init() {
@@ -25,13 +17,13 @@ class Network {
         session = URLSession(configuration: config)
     }
     
-    func getQuote(urlApi: String, completion: @escaping (Data?, Error?) -> (Void)) {
+    func getJSON<T: Codable>(urlApi: String, completion: @escaping (T?, Error?) -> Void) {
         guard let url = URL(string: urlApi) else {
             return
         }
         
         var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+        request.httpMethod = MethodRequest.get.rawValue
         
         let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             
@@ -62,7 +54,16 @@ class Network {
                 }
                 return
             }
-            completion(data, nil)
+            
+            do {
+                let results = try JSONDecoder().decode(T.self, from: data)
+                DispatchQueue.main.async {
+                    completion(results, nil)
+                }
+            }
+            catch let error {
+                print(error)
+            }
         }
         task.resume()
     }
@@ -118,3 +119,4 @@ class Network {
         task.resume()
     }
 }
+

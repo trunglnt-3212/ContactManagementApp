@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class UserDetailViewController: UIViewController {
+final class UserDetailViewController: UIViewController {
     
     @IBOutlet private weak var DetailnfoUIView: UIView!
     @IBOutlet private weak var tableView: UITableView!
@@ -25,15 +25,16 @@ class UserDetailViewController: UIViewController {
     @IBOutlet private weak var followersCountLabel: UILabel!
     @IBOutlet private weak var nameUserLabel: UILabel!
     
-    private var listFollowersUser = [User]()
-    private var listFollowingUser = [User]()
-    private var listRepo = [Repo]()
-    private var userInfo: User?
+    private var listFollowersUser = [DomainUser]()
+    private var listFollowingUser = [DomainUser]()
+    private var listRepo = [DomainProject]()
+    private var userInfo: DomainUser?
     private var loginUser: String?
     private var users: [NSManagedObject] = []
     private var isFirstTap = true
     private var isFavorite = false
-    private let network = Network.shared
+    private let userRepository = UserRepository()
+    private let network = APICaller.shared
     private let coreData = CoreData.shared
     
     override func viewDidLoad() {
@@ -53,23 +54,18 @@ class UserDetailViewController: UIViewController {
     
     func bindData(loginUserString: String) {
         loginUser = "https://api.github.com/users/" + loginUserString
-        network.getQuote(urlApi: loginUser ?? "") { [weak self] (data, error) -> (Void) in
+        userRepository.getUserDetail(urlApi: loginUser ?? "") { [weak self] (data, error) -> (Void) in
             guard let self = self else { return }
             if let _ = error {
                 return
             }
-            do {
                 if let data = data {
-                    let user = try JSONDecoder().decode(User.self, from: data)
                     DispatchQueue.main.async {
-                        self.userInfo = user
+                        self.userInfo = data
                         self.getData()
                         self.tableView.reloadData()
                     }
                 }
-            } catch let error {
-                print(error)
-            }
         }
     }
     
@@ -83,7 +79,6 @@ class UserDetailViewController: UIViewController {
         tableView.register(UINib(nibName: "UserInfoTableViewCell",
                                  bundle: nil),
                            forCellReuseIdentifier: "UserInfoTableViewCell")
-        tableView.delegate = self
         tableView.dataSource = self
         setUpTabUIView(activeTab: followersTabUIView, inactiveTab: followingTabUIView)
         setUpTabUIButton(activeButton: followersTabButton, inactiveButton: followingTabButton)
@@ -100,69 +95,54 @@ class UserDetailViewController: UIViewController {
     }
     
     private func initListFollowersUser() {
-        network.getQuote(urlApi: userInfo?.followers_url ?? "") { [weak self] (data, error) -> (Void) in
+        userRepository.getAllRelationshipOfUser(urlApi: userInfo?.followersUrl ?? "") { [weak self] (data, error) -> (Void) in
             guard let self = self else { return }
             if let _ = error {
                 return
             }
-            do {
                 if let data = data {
-                    let users = try JSONDecoder().decode([User].self, from: data)
                     DispatchQueue.main.async {
-                        self.listFollowersUser = users
+                        self.listFollowersUser = data
                         self.tableView.reloadData()
                         self.followersCountLabel.text = String(self.listFollowersUser.count)
                     }
                 }
-            } catch let error {
-                print(error)
-            }
         }
     }
     
     private func initListFollowingUser() {
-        network.getQuote(urlApi: userInfo?.following_url.replacingOccurrences(of: "{/other_user}", with: "") ?? "") { [weak self] (data, error) -> (Void) in
+        userRepository.getAllRelationshipOfUser(urlApi: userInfo?.followingUrl.replacingOccurrences(of: "{/other_user}", with: "") ?? "") { [weak self] (data, error) -> (Void) in
             guard let self = self else { return }
             if let _ = error {
                 return
             }
-            do {
                 if let data = data {
-                    let users = try JSONDecoder().decode([User].self, from: data)
                     DispatchQueue.main.async {
-                        self.listFollowingUser = users
+                        self.listFollowingUser = data
                         self.tableView.reloadData()
                         self.followingCountLabel.text = String(self.listFollowingUser.count)
                     }
                 }
-            } catch let error {
-                print(error)
-            }
         }
     }
     
     private func initListRepo() {
-        network.getQuote(urlApi: userInfo?.repos_url ?? "") { [weak self] (data, error) -> (Void) in
+        userRepository.getAllRepoOfUser(urlApi: userInfo?.reposUrl ?? "") { [weak self] (data, error) -> (Void) in
             guard let self = self else { return }
             if let _ = error {
                 return
             }
-            do {
                 if let data = data {
-                    let repos = try JSONDecoder().decode([Repo].self, from: data)
                     DispatchQueue.main.async {
-                        self.listRepo = repos
+                        self.listRepo = data
                         self.repoCountLabel.text = String(self.listRepo.count)
                     }
                 }
-            } catch let error {
-                print(error)
-            }
         }
     }
     
     private func initAvatarImage() {
-        network.getImage(imageURL: (userInfo?.avatar_url) ?? "") { [weak self] (data, error)  in
+        network.getImage(imageURL: (userInfo?.avatarUrl) ?? "") { [weak self] (data, error)  in
             guard let self = self else { return }
             if let error = error {
                 print(error)
@@ -216,26 +196,26 @@ class UserDetailViewController: UIViewController {
         setImageForFavoriteButton()
     }
     
-    @IBAction func FollowersTabAction(_ sender: Any) {
+    @IBAction private func FollowersTabAction(_ sender: Any) {
         setUpTabUIView(activeTab: followersTabUIView, inactiveTab: followingTabUIView)
         setUpTabUIButton(activeButton: followersTabButton, inactiveButton: followingTabButton)
         isFirstTap = true
         tableView.reloadData()
     }
     
-    @IBAction func FollowingTabAction(_ sender: Any) {
+    @IBAction private func FollowingTabAction(_ sender: Any) {
         setUpTabUIView(activeTab: followingTabUIView, inactiveTab: followersTabUIView)
         setUpTabUIButton(activeButton: followingTabButton, inactiveButton: followersTabButton)
         isFirstTap = false
         tableView.reloadData()
     }
     
-    @IBAction func backButtonAction(_ sender: Any) {
+    @IBAction private func backButtonAction(_ sender: Any) {
         _ = navigationController?.popViewController(animated: true)
     }
     
     
-    @IBAction func favoriteTapAction(_ sender: Any) {
+    @IBAction private func favoriteTapAction(_ sender: Any) {
         if (isFavorite) {
             coreData.deleteUserFromCoreData(userInfo: userInfo)
         } else {
@@ -263,7 +243,7 @@ extension UIView {
     }
 }
 
-extension UserDetailViewController: UITableViewDataSource, UITableViewDelegate {
+extension UserDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (isFirstTap) {
             return listFollowersUser.count

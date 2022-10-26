@@ -7,18 +7,18 @@
 
 import UIKit
 
-class ListUserViewController: UIViewController {
+final class ListUserViewController: UIViewController {
     
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var searchUITextField: UITextField!
     @IBOutlet private weak var searchUIView: UIView!
     @IBOutlet private weak var searchIconImageView: UIImageView!
     
-    private var listUser = [User]()
-    private var listUserToShow = [User]()
+    private var listUser = [DomainUser]()
+    private var listUserToShow = [DomainUser]()
     private var search: String = ""
     private var searching: Bool = false
-    private let network = Network.shared
+    private let userRepository = UserRepository()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,41 +51,36 @@ class ListUserViewController: UIViewController {
     }
     
     private func initListUser() {
-        network.getQuote(urlApi: "https://api.github.com/search/users?q=abc") { [weak self] (data, error) -> (Void) in
+        userRepository.getAllUser(urlApi: "https://api.github.com/search/users?q=abc") { [weak self] (data, error) -> (Void) in
             guard let self = self else { return }
             if let _ = error {
                 return
             }
-            do {
-                if let data = data {
-                    let users = try JSONDecoder().decode(Users.self, from: data)
-                    DispatchQueue.main.async {
-                        self.listUser = users.items
-                        self.listUserToShow = users.items
-                        self.tableView.reloadData()
-                    }
+            if let data = data {
+                DispatchQueue.main.async {
+                    self.listUser = data
+                    self.listUserToShow = data
+                    self.tableView.reloadData()
                 }
-            } catch let error {
-                print(error)
             }
         }
     }
     
-    @IBAction func showFavoriteUsersAction(_ sender: Any) {
+    @IBAction private func showFavoriteUsersAction(_ sender: Any) {
         guard let favoriteUsersViewController = storyboard?.instantiateViewController(withIdentifier: "FavoriteUsersViewController") as? FavoriteUsersViewController else {
             return
         }
         self.navigationController?.pushViewController(favoriteUsersViewController, animated: true)
     }
     
-    @IBAction func deleteContentSearchAction(_ sender: Any) {
+    @IBAction private func deleteContentSearchAction(_ sender: Any) {
         searchUITextField.text = ""
         listUserToShow = listUser
         tableView.reloadData()
     }
 }
 
-extension ListUserViewController: UITableViewDataSource, UITableViewDelegate {
+extension ListUserViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listUserToShow.count
     }
@@ -98,7 +93,9 @@ extension ListUserViewController: UITableViewDataSource, UITableViewDelegate {
         cell.bindData(user: listUserToShow[indexPath.row], isHiddenShowDetailButton: false)
         return cell
     }
-    
+}
+
+extension ListUserViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let userDetailViewController = storyboard.instantiateViewController(withIdentifier: "UserDetailViewController") as? UserDetailViewController else {
@@ -119,7 +116,7 @@ extension ListUserViewController: UITextFieldDelegate {
         print(textField.text ?? "")
     }
     
-    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let oldText = textField.text,
               let range = Range(range, in: oldText) else {
             return true
